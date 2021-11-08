@@ -1,4 +1,5 @@
 # tuddy-vue
+<<<<<<< HEAD
 
 ## Project setup
 ```
@@ -27,3 +28,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+An overengineered todo-app, tailor-made for the very special needs of erikhm91.
+>>>>>>> edce9a5d53de1888e1e40477dfbe7eba169ef8bf
