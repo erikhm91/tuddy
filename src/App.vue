@@ -1,15 +1,19 @@
 <template>
   <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
   <p>Just started up tuddy-vue with TS!</p>
+  <Main/>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import Main from './components/Main.vue';
 // import HelloWorld from './components/HelloWorld.vue';
 
 @Options({
   components: {
-    // HelloWorld,
+    // Header,
+    Main,
+    // Footer
   },
 })
 export default class App extends Vue {}
@@ -17,7 +21,6 @@ export default class App extends Vue {}
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

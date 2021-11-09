@@ -1,5 +1,9 @@
 # tuddy-vue
-<<<<<<< HEAD
+
+Notater fra utvikling:
+Annotation syntax i vue3 for vue-class-component er litt annerledes enn mye av eksemplene. @Component er deprecated, kan bruke @Options om nødvendig istedet, og den er optional.
+import Vue from 'vue' feiler, fordi 'vue' ikke har noen constructor. Kan da ikke extende klassen.
+https://github.com/vuejs/vue-class-component/issues/406
 
 ## Project setup
 ```
@@ -28,6 +32,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-=======
-An overengineered todo-app, tailor-made for the very special needs of erikhm91.
->>>>>>> edce9a5d53de1888e1e40477dfbe7eba169ef8bf
+
+
