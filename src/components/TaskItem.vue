@@ -1,7 +1,7 @@
 <template>
-    <section>
-        <p>Dette er Main-component.</p>
-    </section>
+    <div>
+        <p>Dette er Task-item.</p>
+    </div>
 </template>
 
 <script lang="ts">

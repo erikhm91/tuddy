@@ -1,7 +1,10 @@
 <template>
-  <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
-  <p>Just started up tuddy-vue with TS!</p>
-  <Main/>
+  <header>
+    <h1>Tuddy</h1>
+    <h3>Fåre gjort a, brur!</h3>
+  </header>
+  
+  <Main id="main"/>
 </template>
 
 <script lang="ts">
@@ -26,5 +29,24 @@ export default class App extends Vue {}
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  box-sizing: border-box;
+}
+
+header {
+  margin-bottom: 30px;
+}
+header h1 {
+  margin-bottom: 0;
+}
+header h3 {
+  margin-top: 0.5rem;
+}
+
+#main {
+  width : 95vw;
+  max-width: 700px;
+  margin: auto;
+  min-height: 300px;
+  font-size: 1.2rem;
 }
 </style>
