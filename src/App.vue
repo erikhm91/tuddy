@@ -4,7 +4,7 @@
     <h3>Fåre gjort a, brur!</h3>
   </header>
   
-  <Main id="main"/>
+  <Main class="main"/>
 </template>
 
 <script lang="ts">
@@ -42,7 +42,7 @@ header h3 {
   margin-top: 0.5rem;
 }
 
-#main {
+.main {
   width : 95vw;
   max-width: 700px;
   margin: auto;

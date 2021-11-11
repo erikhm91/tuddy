@@ -1,24 +1,46 @@
 <template>
-    <div>
-        <p>Dette er Task-item.</p>
-    </div>
+    <ol>
+        <li v-for="task in tasks" :key="task.id">    
+        </li>
+        <TaskItem></TaskItem>
+
+        <button v-on:click="refreshTaskList()">Oppdater oppgaveliste</button>
+    </ol>
 </template>
 
 <script lang="ts">
-    import  Vue  from 'vue-class-component';
+    import { Options, Vue }  from 'vue-class-component';
+    import TaskItem from './TaskItem.vue';
+    import { TaskServiceFake } from '../services/services';
     
-    export default class Main extends Vue {
-        
-        get message(): string {
-            return `Hello, mister Erik!`
+    @Options({
+        components: {  
+            TaskItem
+        },
+    })
+   
+    export default class TaskList extends Vue {
+        tasks: typeof TaskItem[] = [];
+
+        created() {
+            // this.refreshTaskList();
         }
+
+        refreshTaskList() : void {
+            // this.tasks = TaskServiceFake.fetchTasks();
+        }
+      
     }
 
 </script>
 
 <style>
-section {
-    background-color: rgb(211, 211, 211);
+ol {
+    position: relative;
+    max-width : 50%;
+    background-color: red;
+    border: 1px solid blue;
+    list-style-type: none;
 }
 
 </style>
