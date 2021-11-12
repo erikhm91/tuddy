@@ -10,21 +10,12 @@
     import TaskList from './TaskList.vue';
 
     @Options({
-    components: {  
-        TaskList
-    },
-    methods: {
-
-    }
+        components: {  
+            TaskList
+        }
     })
     
-    export default class Main extends Vue {
-        
-        get message(): string {
-            return `Hello, mister Erik!`
-        }
-    }
-    
+    export default class Main extends Vue {}
 
 </script>
 

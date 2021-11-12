@@ -1,23 +1,22 @@
 <template>
-  <header>
-    <h1>Tuddy</h1>
-    <h3>Fåre gjort a, brur!</h3>
-  </header>
-  
-  <Main class="main"/>
+  <div>
+    <header>
+      <h1>Tuddy</h1>
+      <h3>Fåre gjort a, brur!</h3>
+    </header>
+    
+    <Main class="main"></Main>
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Main from './components/Main.vue';
-// import HelloWorld from './components/HelloWorld.vue';
 
 @Options({
   components: {
-    // Header,
-    Main,
-    // Footer
-  },
+    Main
+  }
 })
 export default class App extends Vue {}
 </script>
@@ -45,8 +44,10 @@ header h3 {
 .main {
   width : 95vw;
   max-width: 700px;
+  min-width: 200px;
   margin: auto;
   min-height: 300px;
   font-size: 1.2rem;
+  border: 1px solid purple;
 }
 </style>
