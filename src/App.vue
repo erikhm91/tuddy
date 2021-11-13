@@ -46,8 +46,8 @@ header h3 {
   max-width: 700px;
   min-width: 200px;
   margin: auto;
-  min-height: 300px;
+  // min-height: 300px;
   font-size: 1.2rem;
-  border: 1px solid purple;
+  // border: 1px solid purple;
 }
 </style>

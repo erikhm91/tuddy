@@ -1,17 +1,26 @@
 <template>
-  <div class="task-list">
-    <p>Dette er tasklist</p>
-    <TaskItem :task="getTask()" :service="taskService"></TaskItem>
+  <div>
+    <div class="ty-bar">
+      <button class="ty-button ty-red" v-on:click="refreshTaskList()">Oppdater oppgaveliste</button>
+      <button class="ty-button ty-green" v-on:click="addTask()">Ny oppgave</button>
+    </div>
+    <ol class="ty-task-list">
+      <li v-for="task in tasks" :key="task.getId()">
+        <TaskItem :task="task" :service="taskService" @completeTaskEvent="completeTask(task)"></TaskItem>
+      </li>
+    </ol>
+    <!-- <p>Dette er tasklist</p>
+    <TaskItem :task="getTask()" :service="taskService"></TaskItem> -->
 
-    <button v-on:click="refreshTaskList()">Oppdater oppgaveliste</button>
+    
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import TaskItem from "./TaskItem.vue";
-import { Task, BaseTask } from '../domain/Task'
-import { TaskService, TaskServiceFake } from "../services/services"
+import { Task, TaskStatus } from "../domain/Task";
+import { TaskService, TaskServiceFake } from "../services/services";
 
 @Options({
   components: {
@@ -19,33 +28,53 @@ import { TaskService, TaskServiceFake } from "../services/services"
   },
 })
 export default class TaskList extends Vue {
-   tasks: Task[] = []
-   taskService : TaskService = null
+  tasks: Task[] = null
+  taskService: TaskService = null;
 
-   created() {
-       this.taskService = new TaskServiceFake()
-   }
-
-  refreshTaskList(): void {
-    this.tasks = this.taskService.fetchTasks();
-    console.log('fetched tasks: ', this.tasks)
-    this.tasks.forEach( task => {
-        console.log(task.getId(), task.getDescription(), task.getStatus())
-    } )
+  created(): void {
+    this.taskService = new TaskServiceFake();
+    this.refreshTaskList();
   }
 
-  getTask(): Task {
-      return new BaseTask('1', 'legge seg i senga')
+  refreshTaskList(): void {
+    const fetchedTasks = this.taskService.fetchTasks();
+
+    this.tasks = []
+    fetchedTasks.forEach((task) => {
+      if (task.getStatus() === TaskStatus.Created) {
+        this.tasks.push(task);
+      }
+    });
+  }
+
+  completeTask(task : Task): void {
+    console.log('event completetask fired in tasklist')
+    task.completeTask()
+    this.taskService.updateTask(task)
+  }
+
+  addTask() {
+    console.log('add task fired')
   }
 }
 </script>
 
 <style>
-.task-list {
+.ty-task-list {
   /* position: relative;
   max-width: 50%; */
-  background-color: red;
-  border: 1px solid blue;
+  /* background-color: red; */
+  /* border: 1px solid blue; */
   list-style-type: none;
 }
+
+.ty-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+
+
+
 </style>

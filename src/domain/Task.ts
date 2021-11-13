@@ -1,11 +1,11 @@
 export interface Task {
-    readonly id : string
-    description : string
-    status : TaskStatus
+    // readonly id : string
+    // description : string
+    // status : TaskStatus
     completeTask() : void
     getId(): string
     getDescription(): string
-    getStatus(): TaskStatus
+    getStatus(): string
     
 }
 
@@ -37,7 +37,7 @@ export class BaseTask implements Task {
     getDescription(): string {
         return this.description
     }
-    getStatus(): TaskStatus {
+    getStatus(): string {
         return this.status
     }
 

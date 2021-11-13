@@ -2,8 +2,8 @@
     <article class="task-wrapper">
         <h3>Oppgave nr. <b>{{ id }}</b></h3>
         <p>{{description}}</p>
-        <p>Status: {{}}</p>
-        <button v-on:click="complete()">Fullfør</button>
+        <p>Status: {{status}}</p>
+        <button class="ty-button ty-green ty-button-complete" v-on:click="complete()">Fullfør</button>
         
     </article>
 </template>
@@ -20,28 +20,22 @@
 
         id : string = null; //null to make reactive
         description : string = null;
-        status : TaskStatus
-
-        created() {
-                 this.id = "12"
-            this.description = "hallo"
-            this.status = TaskStatus.Created
-        }
+        status : string = null;
 
         mounted() {
-            this.id = this.task.getId();
-            this.description = this.task.getDescription();
+            this.id = this.task.getId()
+            this.description = this.task.getDescription()
+            this.status = this.task.getStatus()
+        }
 
         
-        //     this.id = task.getId();
-        //     this.description = task.getDescription();
-        //     this.status = task.getStatus();
-        //     this._props = new Props();
-        }
 
         complete() : void {
             //propagate up to tasklist - tasklist contacts the service.
             console.log('complete clicked')
+            this.$emit('completeTaskEvent', this.task)
+            this.status = this.task.getStatus()
+            
         }
 
     }
@@ -50,12 +44,17 @@
 
 <style>
 .task-wrapper {
-    margin: 20px;
+    margin: 10px;
     background-color: wheat;
     border-radius: 8px;
     border-color: white;
     box-shadow: 0 0 25px rgb(0 0 0 / 5%);
 }
 
+
+.ty-button-complete {
+    margin: 0.5rem 0 1rem 0;
+    width: 8rem;
+}
 
 </style>

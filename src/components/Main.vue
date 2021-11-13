@@ -1,6 +1,6 @@
 <template>
     <section>
-        <p>Dette er Main-component.</p>
+        <!-- <p>Dette er Main-component.</p> -->
         <TaskList></TaskList>
     </section>
 </template>
@@ -21,9 +21,9 @@
 
 <style>
 
-section {
+/* section {
     background-color: rgb(211, 211, 211);
     border: 1px solid black;
-}
+} */
 
 </style>
