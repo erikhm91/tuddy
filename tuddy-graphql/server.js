@@ -7,7 +7,7 @@ const { buildSchema } = require('graphql');
 // Create a schema
 const schema = buildSchema(`
     type Book {
-        title: String!
+        title: String
         author: String
     }
     type Author {
@@ -16,8 +16,8 @@ const schema = buildSchema(`
     }
 
     type Query {
+        hello: String,
         books: [Book],
-        hello: String
         authors: [Author]
     }
 `);

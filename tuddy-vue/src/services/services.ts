@@ -43,3 +43,47 @@ export class TaskServiceFake implements TaskService {
     console.log("update task fired in taskServiceFake");
   }
 }
+
+export class TaskServiceGraphQL implements TaskService {
+  constructor() {
+
+  }
+
+  createTask(): string {
+    console.log('createTask was called in TaskServiceGraphQL')
+    return null;
+  }
+
+  fetchTasks(): Task[] {
+    console.log('fetchTasks was called in TaskServiceGraphQL')
+    return null;
+  }
+
+  updateTask(task: Task): void {
+    console.log("update task was called in TaskServiceGraphQL");
+  }
+
+  callHelloWorld(): Promise<string> {
+    var query = '{query: "{ hello }"}'
+    return fetch('/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        query
+      })
+    })
+      .then(r => r.json())
+      .then(data => {   
+            console.log('data returned:', data);
+            return data
+    });
+
+
+
+  }
+}
+
+
