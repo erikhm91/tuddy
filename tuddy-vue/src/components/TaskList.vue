@@ -21,6 +21,7 @@ import { Options, Vue } from "vue-class-component";
 import TaskItem from "./TaskItem.vue";
 import { Task, TaskStatus } from "../domain/Task";
 import { TaskService, TaskServiceFake } from "../services/services";
+import { MockRepository } from '../services/repositories'
 
 @Options({
   components: {
@@ -32,7 +33,7 @@ export default class TaskList extends Vue {
   taskService: TaskService = null;
 
   created(): void {
-    this.taskService = new TaskServiceFake();
+    this.taskService = new TaskServiceFake(new MockRepository);
     this.refreshTaskList();
   }
 

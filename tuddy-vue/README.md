@@ -5,6 +5,8 @@ Annotation syntax i vue3 for vue-class-component er litt annerledes enn mye av e
 import Vue from 'vue' feiler, fordi 'vue' ikke har noen constructor. Kan da ikke extende klassen.
 https://github.com/vuejs/vue-class-component/issues/406
 
+
+
 ## Project setup
 ```
 npm install
@@ -23,6 +25,8 @@ npm run build
 ### Run your unit tests
 ```
 npm run test:unit
+
+
 ```
 
 ### Lints and fixes files

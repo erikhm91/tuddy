@@ -1,15 +1,18 @@
 import { BaseTask, Task } from "../domain/Task";
+import { Repository } from "./repositories";
 
 export interface TaskService {
-  createTask(): string;
-  fetchTasks(): Task[];
-  updateTask(task: Task): void;
+  repo: Repository
+  createTask(): string
+  fetchTasks(): Task[]
+  updateTask(task: Task): void
 }
 
 export class TaskServiceFake implements TaskService {
-  // tasks: Task[] = null;
+  repo : Repository
 
-  constructor() {
+  constructor(repo : Repository) {
+    this.repo = repo
     // const taskArray = new Array<Task>();
     // taskArray.push(new BaseTask("1", "Undersøke TV før black friday"));
     // taskArray.push(
@@ -45,8 +48,10 @@ export class TaskServiceFake implements TaskService {
 }
 
 export class TaskServiceGraphQL implements TaskService {
-  constructor() {
-
+  repo : Repository
+  
+  constructor(repo : Repository) {
+    this.repo = repo;
   }
 
   createTask(): string {
@@ -63,27 +68,8 @@ export class TaskServiceGraphQL implements TaskService {
     console.log("update task was called in TaskServiceGraphQL");
   }
 
-  callHelloWorld(): Promise<string> {
-    var query = '{query: "{ hello }"}'
-    return fetch('/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({
-        query
-      })
-    })
-      .then(r => r.json())
-      .then(data => {   
-            console.log('data returned:', data);
-            return data
-    });
-
-
-
-  }
+ 
 }
+
 
 
