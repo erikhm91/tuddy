@@ -20,8 +20,8 @@
 import { Options, Vue } from "vue-class-component";
 import TaskItem from "./TaskItem.vue";
 import { Task, TaskStatus } from "../domain/Task";
-import { TaskService, TaskServiceFake } from "../services/services";
-import { MockRepository } from '../services/repositories'
+import { ITaskService, TaskServiceFake } from "../services/services";
+import { MockRepository } from '../repositories/repositories'
 
 @Options({
   components: {
@@ -30,7 +30,7 @@ import { MockRepository } from '../services/repositories'
 })
 export default class TaskList extends Vue {
   tasks: Task[] = null
-  taskService: TaskService = null;
+  taskService: ITaskService = null;
 
   created(): void {
     this.taskService = new TaskServiceFake(new MockRepository);

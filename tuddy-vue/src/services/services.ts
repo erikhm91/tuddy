@@ -1,18 +1,15 @@
 import { BaseTask, Task } from "../domain/Task";
-import { Repository } from "./repositories";
+import { IRepository } from "../repositories/repositories";
 
-export interface TaskService {
-  repo: Repository
-  createTask(): string
+export interface ITaskService {
+  createTask(): void
   fetchTasks(): Task[]
   updateTask(task: Task): void
 }
 
-export class TaskServiceFake implements TaskService {
-  repo : Repository
+export class TaskServiceFake implements ITaskService {
 
-  constructor(repo : Repository) {
-    this.repo = repo
+  constructor(repo : IRepository) {
     // const taskArray = new Array<Task>();
     // taskArray.push(new BaseTask("1", "Undersøke TV før black friday"));
     // taskArray.push(
@@ -20,8 +17,8 @@ export class TaskServiceFake implements TaskService {
     // );
   }
 
-  createTask(): string {
-    return "id task created";
+  createTask(): void {
+    //
   }
 
   getRandomId(): number {
@@ -47,16 +44,16 @@ export class TaskServiceFake implements TaskService {
   }
 }
 
-export class TaskServiceGraphQL implements TaskService {
-  repo : Repository
+export class TaskService implements ITaskService {
+  repo : IRepository
   
-  constructor(repo : Repository) {
+  constructor(repo : IRepository) {
     this.repo = repo;
   }
 
-  createTask(): string {
-    console.log('createTask was called in TaskServiceGraphQL')
-    return null;
+  createTask(): void {
+    const query = '{"data": {"hello": "Hello world!"}}'
+    const response = this.repo.post(query, r => {console.log(r)});
   }
 
   fetchTasks(): Task[] {
