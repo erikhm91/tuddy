@@ -19,9 +19,10 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import TaskItem from "./TaskItem.vue";
-import { Task, TaskStatus } from "../domain/Task";
-import { ITaskService, TaskServiceFake } from "../services/services";
-import { MockRepository } from '../repositories/repositories'
+import { Task, TaskStatus } from '../Task'
+import { TaskControllerFake } from "../TaskControllerFake";
+import { ITaskController } from '../ITaskController';
+import { FakeGraphQLFacade } from '../FakeGraphQLFacade'
 
 @Options({
   components: {
@@ -30,10 +31,10 @@ import { MockRepository } from '../repositories/repositories'
 })
 export default class TaskList extends Vue {
   tasks: Task[] = null
-  taskService: ITaskService = null;
+  taskService: ITaskController = null;
 
   created(): void {
-    this.taskService = new TaskServiceFake(new MockRepository);
+    this.taskService = new TaskControllerFake(new FakeGraphQLFacade);
     this.refreshTaskList();
   }
 

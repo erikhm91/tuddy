@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import Main from './components/Main.vue';
+import Main from './taskFeature/components/Main.vue';
 
 @Options({
   components: {

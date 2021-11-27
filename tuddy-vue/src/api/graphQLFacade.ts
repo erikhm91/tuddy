@@ -1,35 +1,9 @@
-export interface IRepository {
+export interface IGraphQLFacade {
   post(query: string, callback: (data: any) => void): any   //like postAwait is better!
   postAwait(query: string): Promise<string>
 }
 
-export class MockRepository implements IRepository {
-  toReturn: string
-  sentValue: string
-
-  setValueToBeReturned(toReturn: string): void {
-    this.toReturn = toReturn
-  }
-  post(query: string, callback: (data: any) => void): Promise<any> {
-    this.sentValue = query;
-    return new Promise<string>((resolve, reject) => {
-      resolve('success!');
-    })
-  }
-
-  postAwait(query: string): Promise<string> {
-    this.sentValue = query;
-    return new Promise<string>((resolve, reject) => {
-      resolve('success!');
-    })
-  }
-
-  getSentValue(): string {
-    return this.sentValue
-  }
-}
-
-export class GraphQLRepository implements IRepository {
+export class GraphQLFacade implements IGraphQLFacade {
   async post(query: string, callback: (data: any) => void): Promise<any> {
     fetch("http://localhost:3000/graphql", {
       method: "POST",

@@ -1,4 +1,4 @@
-import { GraphQLRepository } from "@/repositories/repositories";
+import { GraphQLFacade} from "@/api/graphQLFacade";
 import "cross-fetch/polyfill";
 
   it('can call graphql post "hello world" with async fetch', (done) => {
@@ -13,14 +13,14 @@ import "cross-fetch/polyfill";
       }
     }
 
-    const graphQL  = new GraphQLRepository();
+    const graphQL  = new GraphQLFacade();
     graphQL.post(helloQuery, callback);
     
   })
 
   it('can call graphql post "hello world" with async await fetch', async () => {
     const helloQuery = '{ hello }';
-    const sut  = new GraphQLRepository();
+    const sut  = new GraphQLFacade();
 
     const response = await sut.postAwait(helloQuery);
     

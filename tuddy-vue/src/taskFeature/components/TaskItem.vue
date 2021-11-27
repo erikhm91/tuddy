@@ -11,7 +11,7 @@
 <script lang="ts">
     import { Vue} from 'vue-class-component'
     import { Prop } from 'vue-property-decorator'
-    import { Task, TaskStatus} from '../domain/Task'
+    import { Task, TaskStatus} from '../Task'
 
     export default class TaskItem extends Vue {
         @Prop()
