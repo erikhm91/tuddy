@@ -6,11 +6,11 @@
     </div>
     <ol class="ty-task-list">
       <li v-for="task in tasks" :key="task.getId()">
-        <TaskItem :task="task" :service="taskService" @completeTaskEvent="completeTask(task)"></TaskItem>
+        <TaskItem :task="task" @completeTaskEvent="completeTask(task)"></TaskItem>
       </li>
     </ol>
     <!-- <p>Dette er tasklist</p>
-    <TaskItem :task="getTask()" :service="taskService"></TaskItem> -->
+    <TaskItem :task="getTask()" :service="taskController"></TaskItem> -->
 
     
   </div>
@@ -31,15 +31,15 @@ import { FakeGraphQLFacade } from '../FakeGraphQLFacade'
 })
 export default class TaskList extends Vue {
   tasks: Task[] = null
-  taskService: ITaskController = null;
+  taskController: ITaskController = null;
 
   created(): void {
-    this.taskService = new TaskControllerFake(new FakeGraphQLFacade);
+    this.taskController = new TaskControllerFake(new FakeGraphQLFacade);
     this.refreshTaskList();
   }
 
   refreshTaskList(): void {
-    const fetchedTasks = this.taskService.fetchTasks();
+    const fetchedTasks = this.taskController.fetchTasks();
 
     this.tasks = []
     fetchedTasks.forEach((task) => {
@@ -52,7 +52,7 @@ export default class TaskList extends Vue {
   completeTask(task : Task): void {
     console.log('event completetask fired in tasklist')
     task.completeTask()
-    this.taskService.updateTask(task)
+    this.taskController.updateTask(task)
   }
 
   addTask() {
