@@ -14,7 +14,7 @@ import "cross-fetch/polyfill";
     }
 
     const graphQL  = new GraphQLFacade();
-    graphQL.post(helloQuery, callback);
+    graphQL.fetchCallback(helloQuery, callback);
     
   })
 
@@ -22,7 +22,7 @@ import "cross-fetch/polyfill";
     const helloQuery = '{ hello }';
     const sut  = new GraphQLFacade();
 
-    const response = await sut.postAwait(helloQuery);
+    const response = await sut.fetch(helloQuery);
     
     expect(response).toStrictEqual({"data": {"hello": "Hello world!"}})
   })

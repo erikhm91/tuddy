@@ -2,47 +2,98 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 
+const fakeDatabase = []
 
 
-// Create a schema
+//schema: defintion of types and query
 const schema = buildSchema(`
+    type Task {
+        id: String
+        description: String
+        status: String
+    }
+
+    input TaskInput {
+        description: String
+        status: String
+    }
+
+    type TaskList {
+       getAllTasks : [Task]
+    }
+
+    type Mutation {
+        addTask(description: String, status: String): Task
+    }
+
     type Query {
+        task: Task
+        taskList: TaskList
         hello: String
-        quoteOfTheDay: String
-        random: Float!
-        rollThreeDice: [Int]
-        rollDice(numDice: Int!, numSides: Int): [Int]
     }
 `);
 
-//Root resolver: the root provides a resolver function for each API endpoint. Or as here, an object (hardcoded)
+
+// taskList: TaskList
+
+//implement types (resolver functions for "subqueries")
+class Task {
+
+    constructor(id) {
+        this.id = id
+        this.status = ''
+        this.description = ''
+    }
+
+    setDescription(description) {
+        this.description = description
+    }
+
+    setStatus(status) {
+        this.status = status
+    }
+    
+
+    getTask() {
+        return "dette er en task!"
+    }
+}
+
+class TaskList {
+
+    getAllTasks() {
+        return fakeDatabase
+    }
+}
+
+//Root resolver: the root provides a resolver function for each API endpoint
 const root = {
     hello: () => {
         return 'Hello world!'
     },
-    tasks: [
-        {
-            id: "1",
-            description: "Kjøpe grill",
-            status: "Completed"
-        }
-    ],
-    quoteOfTheDay: () => {
-        return Math.random() < 0.5 ? 'Take it easy' : 'Salvation lies within';
-      },
-      random: () => {
-        return Math.random();
-      },
-      rollThreeDice: () => {
-        return [1, 2, 3].map(_ => 1 + Math.floor(Math.random() * 6));
-      },
-      rollDice: ({numDice, numSides}) => {
-          const output = []
-          for (let i=0; i<numDice; i++) {
-              output.push(1 + Math.floor(Math.random() * (numSides || 6)))
-          }
-          return output
-      }
+    task: () => {
+        return new Task()
+    },
+    taskList: () => {
+        return new TaskList()
+    },
+
+    //takes in argument args - use object destructuring in signature to assign to variables
+    addTask: ( {description, status} ) => {
+        const task = new Task(''+Math.floor(Math.random()*100))
+        task.setDescription(description)
+        task.setStatus(status)
+        fakeDatabase.push(task)
+        return task
+    }
+
+    // addTask: ( {taskInput} ) => {
+    //     const task = new Task(''+Math.random()*100)
+    //     task.setDescription(taskInput.description)
+    //     task.setStatus(taskInput.status)
+    //     fakeDatabase.push(task)
+    //     return task
+    // }
 };
 
 // Create a server:

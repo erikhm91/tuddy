@@ -14,3 +14,43 @@ localhost:3000/graphql
 
 
 
+## test queries
+mutation {
+     addTask(description:"Kjøpe pølser", 
+       status:"Created") {
+       id
+     }
+}
+
+
+query {
+  taskList {
+    getAllTasks {
+      id,
+      description,
+      status
+    } 
+  }
+}
+
+getAllTasks returns the array of objects on json format:
+
+{
+  "data": {
+    "taskList": {
+      "getAllTasks": [
+        {
+          "id": "10",
+          "description": "Kjøpe pølser",
+          "status": "Created"
+        },
+        {
+          "id": "39",
+          "description": "Kjøpe pølser",
+          "status": "Created"
+        }
+    }
+  }
+}
+
+

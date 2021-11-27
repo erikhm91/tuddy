@@ -1,10 +1,10 @@
 export interface IGraphQLFacade {
-  post(query: string, callback: (data: any) => void): any   //like postAwait is better!
-  postAwait(query: string): Promise<string>
+  // fetchCallback(query: string, callback: (data: any) => void): any  
+  fetch(query: string): Promise<string>
 }
 
 export class GraphQLFacade implements IGraphQLFacade {
-  async post(query: string, callback: (data: any) => void): Promise<any> {
+  async fetchCallback(query: string, callback: (data: any) => void): Promise<any> {
     fetch("http://localhost:3000/graphql", {
       method: "POST",
       headers: {
@@ -19,7 +19,7 @@ export class GraphQLFacade implements IGraphQLFacade {
       .then((data) => callback(data));
   }
 
-  async postAwait(query: string): Promise<string> {
+  async fetch(query: string): Promise<string> {
     const response = await fetch("http://localhost:3000/graphql", {
       method: "POST",
       headers: {
