@@ -6,6 +6,10 @@ Example query fra docs justert for windows. curl i command line. må ha double q
 curl -X POST -H "Content-Type: application/json" -d "{\"query\": \"{ hello }\"}" "http://localhost:3000/graphql"
 https://graphql.org/graphql-js/graphql-clients/
 
+
+Hadde litt issues med at ikke jeg kunne bruke require('fs') (file system), løste ved å bruke 'npm install "@types/node" --save-dev' (fungerte uten å oppdatere tsconfig)
+https://stackoverflow.com/questions/37260901/how-to-find-module-fs-in-vs-code-with-typescript
+
 ## start graphql server:
 npm run start
 

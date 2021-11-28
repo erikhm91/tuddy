@@ -2,7 +2,16 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 
-const fakeDatabase = []
+// const TaskDTO = require('./api/TaskDTO.ts').TaskDTO;
+const JsonDataLayerFacade = require('./api/DataLayerFacade')
+// import { JsonDataLayerFacade } from './api/DataLayerFacade'
+// import { TaskDTO } from './api/TaskDTO';
+
+
+console.log('jsondatalayer: ', JsonDataLayerFacade)
+const fakeDatabase = new JsonDataLayerFacade()
+// const fakeDatabase = []
+const fakeDBArray = []
 
 
 //schema: defintion of types and query
@@ -40,7 +49,7 @@ const schema = buildSchema(`
 class Task {
 
     constructor(id) {
-        this.id = id
+        this.id = id ? id : ''
         this.status = ''
         this.description = ''
     }
@@ -62,7 +71,8 @@ class Task {
 class TaskList {
 
     getAllTasks() {
-        return fakeDatabase
+        const taskList = fakeDatabase.getTaskList();
+        return taskList
     }
 }
 
@@ -83,17 +93,17 @@ const root = {
         const task = new Task(''+Math.floor(Math.random()*100))
         task.setDescription(description)
         task.setStatus(status)
-        fakeDatabase.push(task)
+        fakeDBArray.push(task)
+        return task
+    },
+
+    addTaskInput: ( {taskInput} ) => {
+        const task = new Task(''+Math.random()*100)
+        task.setDescription(taskInput.description)
+        task.setStatus(taskInput.status)
+        fakeDBArray.push(task)
         return task
     }
-
-    // addTask: ( {taskInput} ) => {
-    //     const task = new Task(''+Math.random()*100)
-    //     task.setDescription(taskInput.description)
-    //     task.setStatus(taskInput.status)
-    //     fakeDatabase.push(task)
-    //     return task
-    // }
 };
 
 // Create a server:
