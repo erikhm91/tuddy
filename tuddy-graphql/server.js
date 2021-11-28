@@ -33,6 +33,7 @@ const schema = buildSchema(`
 
     type Mutation {
         addTask(description: String, status: String): Task
+        addTaskJson(description: String, status: String): Task
     }
 
     type Query {
@@ -94,6 +95,23 @@ const root = {
         task.setDescription(description)
         task.setStatus(status)
         fakeDBArray.push(task)
+        return task
+    },
+
+    addTaskJson: ( {description, status} ) => {
+        //build instance of type Task
+        const task = new Task(''+Math.floor(Math.random()*100))
+        task.setDescription(description)
+        task.setStatus(status)
+
+        //send js obj (for json)
+        taskObj = {}
+        taskObj.id = task.id
+        taskObj.description = task.description
+        taskObj.status = task.status
+        fakeDatabase.addData(task)
+
+        //return Task instance
         return task
     },
 
